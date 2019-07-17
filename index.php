@@ -23,6 +23,8 @@ require_once('process.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+    <script src="script.js"></script>
+
 </head>
 <body>
     <div class="container">
@@ -38,14 +40,18 @@ require_once('process.php');
         <form class="form-inline justify-content-center" action="" method="post">
             <div class="form-group">
                 <!-- <label for="taskname">Task</label> -->
-                <input type="text" name="task_name" class="form-control" placeholder="Task">
+                <input type="text" name="task_name" class="form-control" placeholder="Task" value="<?= $task_name; ?>">
             </div>
             <div class="form-group">
                 <!-- <label for="priority">Priority</label> -->
                 <select name="priority_select" class="form-control">
                     <option disabled selected value> -- Priority -- </option>
                     <?php foreach($priorities as $prio): ?>
-                        <option value="<?= $prio['priority_id']; ?>">
+                        <option value="<?= $prio['priority_id']; ?>"
+                            <?php if($task_prio == $prio['priority_id']): ?>
+                                selected="selected"
+                            <?php endif;?>
+                        >
                             <?= $prio['priority_name']; ?>
                         </option>
                     <?php endforeach; ?>
@@ -53,9 +59,17 @@ require_once('process.php');
             </div>
             <div class="form-group">
                 <!-- <label for="duedate">Due date</label> -->
-                <input type="date" name="due_date" class="form-control">
+                <input type="date" name="due_date" class="form-control" value="<?= $task_duedate; ?>">
             </div>
-            <button type="submit" name="submit" class="btn btn-primary">Add Task</button>
+
+            <input type="hidden" name="id" value="<?= $id; ?>">
+            <input type="hidden" name="finished" value="<?= $finished ?>">
+
+            <?php if($update == false): ?>
+                <button type="submit" name="submit" class="btn btn-primary">Add Task</button>
+            <?php else: ?>
+                <button type="submit" name="update" class="btn btn-primary">Update Task</button>
+            <?php endif; ?>
         </form>
 
 

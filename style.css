@@ -36,3 +36,11 @@ table a:hover{
     color: #999;
     text-decoration: none;
 }
+
+.finish_btn {
+    color: red;
+}
+
+.finished{
+    color: green;
+}

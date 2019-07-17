@@ -19,7 +19,7 @@ require_once('process.php');
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
@@ -91,15 +91,18 @@ require_once('process.php');
                         <td><?= $task['task_name']; ?></td>
                         <td><?= $task['due_date']; ?></td>
                         <td class="btn-action">
-                            <a href="#">
-                                <i class="material-icons">check_circle_outline</i>
-                            </a>
+                            <i class="material-icons finish_btn 
+                                <?php if($task['finished']){ echo " finished"; } ?>" 
+                                data-id="<?= $task['task_id'] ?>">check_circle_outline
+                            </i>
+                            
                             <a href="index.php?edit=<?php echo $task['task_id'] ?>">
                                 <i class="material-icons">create</i>
                             </a>
-                            <a href="process.php?delete=<?php echo $task['task_id'] ?>">
+                            <!-- <a href="process.php?delete=<?php echo $task['task_id'] ?>">
                                 <i class="material-icons">delete_outline</i>
-                            </a>
+                            </a> -->
+                            <i class="material-icons delete_btn" data-id="<?= $task['task_id'] ?>">delete_outline</i>
                         </td>
                     </tr>
                 <?php endforeach; ?>

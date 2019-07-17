@@ -107,3 +107,43 @@ if(isset($_GET['delete'])){
     header('location: index.php');
     exit();
 }
+
+
+
+// ajax call  ----------------------------------------------------------
+
+if(isset($_POST['finish'])){
+    $task_id = $_POST['task_id'];
+    $action = $_POST['finish'];
+
+    switch($action){
+        case 'finish':
+            $sql = "UPDATE tasks SET finished='1' WHERE task_id = ?";
+            break;
+        case 'unfinish':
+            $sql = "UPDATE tasks SET finished='0' WHERE task_id = ?";
+            break;
+    }
+
+    // execute query
+    $query = $conn->prepare($sql);
+    $query->bindValue(1, $task_id);
+    $query->execute();
+
+    echo json_encode("success");
+
+    exit();
+}
+
+if(isset($_POST['delete_btn'])){
+    $task_id = $_POST['task_id'];
+
+    $query = $conn->prepare('DELETE FROM tasks WHERE task_id = ?');
+    $query->bindValue(1, $task_id);
+
+    $query->execute();
+
+    echo json_encode("success");
+
+    exit();
+}
